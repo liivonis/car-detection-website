@@ -57,6 +57,18 @@ INSERT INTO `videos` (`id`, `VideoName`) VALUES
 (2, 'video');
 COMMIT;
 
+-- --------------------------------------------------------
+
+--
+-- View for object count 'video_count`
+--
+
+CREATE OR REPLACE VIEW 'video_count' AS
+SELECT t2.id, t2.VideoName, t1.CarCount
+FROM `car_count` t1
+INNER JOIN `videos` t2
+ON t1.id = t2.id;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
