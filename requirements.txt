@@ -1,0 +1,5 @@
+mysql-connector
+numpy~=1.20.3
+opencv-python~=4.5.2.52
+Flask~=2.0.1
+Werkzeug~=2.0.1
