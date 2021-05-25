@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, flash, redirect
 from werkzeug.utils import secure_filename
 import os
-import mysql.connector
 import db_connection
+import detection
 
 db = db_connection.mycursor
 
@@ -16,6 +16,10 @@ ALLOWED_EXTENSIONS = set(['mp4'])
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+def start_counter_script():
+    detection.run_counter()
 
 
 @app.route("/")
@@ -37,10 +41,10 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             flash('File successfully uploaded')
             db.execute("INSERT INTO videos (VideoName) VALUES ('%s')" % filename.split('.')[0])
             db_connection.mydb.commit()
+            start_counter_script()
             return redirect('/')
         else:
             flash('Incorrect file format')
