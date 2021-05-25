@@ -2,14 +2,12 @@ from flask import Flask, render_template, request, flash, redirect
 from werkzeug.utils import secure_filename
 import os
 import mysql.connector
+import db_connection
 
-
-mydb = mysql.connector.connect(host="localhost", user="admin", passwd="admin", database="car_detection")
-mycursor = mydb.cursor()
-
+db = db_connection.mycursor
 
 app = Flask(__name__, template_folder='templates')
-app.config['UPLOAD_FOLDER'] = 'C:/Users/Liva Ermansone/car-detection-website/videos'
+app.config['UPLOAD_FOLDER'] = 'videos'
 app.secret_key = 'the random string'
 
 
@@ -41,9 +39,8 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             flash('File successfully uploaded')
-            sql = "INSERT INTO `videos`(`id`, `VideoName`) VALUES (3, file_path);"
-            mycursor.execute(sql, if_exists='append')
-            mydb.commit()
+            db.execute("INSERT INTO videos (VideoName) VALUES ('%s')" % filename.split('.')[0])
+            db_connection.mydb.commit()
             return redirect('/')
         else:
             flash('Incorrect file format')
