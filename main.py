@@ -24,7 +24,10 @@ def start_counter_script():
 
 @app.route("/")
 def upload_form():
-    return render_template("index.html")
+    db_connection.mycursor.execute("SELECT * FROM video_count ORDER BY id DESC")
+    data = db_connection.mycursor.fetchall()
+    datacount = db_connection.mycursor.execute("SELECT COUNT(*) FROM video_count")
+    return render_template("index.html", data=data, datacount=db_connection.mycursor.fetchone())
 
 
 @app.route('/', methods=['POST'])

@@ -1,53 +1,72 @@
 <!doctype html>
 <head>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link rel="stylesheet" href="/static/style.css">
-	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/style.css">
+    <script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
-	<div class="message">
-		<p>
-	{% with messages = get_flashed_messages() %}
-	  {% if messages %}
-		<ul class=flashes>
-		{% for message in messages %}
-		  <h1>{{ message }}</h1>
-		{% endfor %}
-		</ul>
-	  {% endif %}
-	{% endwith %}
-		</p>
-	</div>
+<div class="message">
+    <p>
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+    <ul class=flashes>
+        {% for message in messages %}
+        <h1>{{ message }}</h1>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+    </p>
+</div>
 <title>File upload</title>
 <div class="frame">
-	<div class="center">
-		<div class="title">
-			<h1>Select a file to upload</h1>
-		</div>
-		<div class="dropzone">
-			<img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon" />
-				<form method="post" action="/" enctype="multipart/form-data">
-    				<dl>
-						<p>
-							<label class="btn">
-								<input type="file" name="file" autocomplete="off" required >
-								Choose file
-							</label>
-						</p>
-    				</dl>
-					<p>
-						<label class="btn">
-							<input type="submit" value="Submit" >
-							Submit
-						</label>
-					</p>
-				</form>
-		</div>
-	</div>
+    <div class="center">
+        <div class="title">
+            <h1>Select a file to upload</h1>
+        </div>
+        <div class="dropzone">
+            <img src="http://100dayscss.com/codepen/upload.svg" class="upload-icon"/>
+            <form method="post" action="/" enctype="multipart/form-data">
+                <dl>
+                    <p>
+                        <label class="btn">
+                            <input type="file" name="file" autocomplete="off" required>
+                            Choose file
+                        </label>
+                    </p>
+                </dl>
+                <p>
+                    <label class="btn">
+                        <input type="submit" value="Submit">
+                        Submit
+                    </label>
+                </p>
+            </form>
+        </div>
+    </div>
 </div>
-	<div class="container">
-        <p>{{html}}</p>
-	</div>
+<div class="container">
+    {% if datacount[0] != 0 %}
+    <table class="table table-striped">
+        <thead>
+        <tr class="table-primary">
+            <th scope="col">ID</th>
+            <th scope="col">Video Name</th>
+            <th scope="col">Cars</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for row in data %}
+        <tr>
+            {% for col in row %}
+            <td>{{col}}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
 </body>
 </html>
