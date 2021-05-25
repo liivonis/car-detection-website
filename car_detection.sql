@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: May 18, 2021 at 04:46 PM
+-- Generation Time: May 25, 2021 at 10:12 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.2.14
 
@@ -45,21 +45,33 @@ DROP TABLE IF EXISTS `videos`;
 CREATE TABLE IF NOT EXISTS `videos` (
   `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT,
   `VideoName` varchar(600) NOT NULL,
+  `TimeStamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
-
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
 --
--- View for object count `video_count`
+-- Stand-in structure for view `video_count`
+-- (See below for the actual view)
 --
+DROP VIEW IF EXISTS `video_count`;
+CREATE TABLE IF NOT EXISTS `video_count` (
+`id` int(6) unsigned
+,`VideoName` varchar(600)
+,`CarCount` int(11)
+,`TimeStamp` timestamp
+);
 
-CREATE OR REPLACE VIEW `video_count` AS
-SELECT t2.id, t2.VideoName, t1.CarCount
-FROM `car_count` t1
-INNER JOIN `videos` t2
-ON t1.id = t2.id;
+-- --------------------------------------------------------
+
+--
+-- Structure for view `video_count`
+--
+DROP TABLE IF EXISTS `video_count`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `video_count`  AS  select `t2`.`id` AS `id`,`t2`.`VideoName` AS `VideoName`,`t1`.`CarCount` AS `CarCount`,`t2`.`TimeStamp` AS `TimeStamp` from (`car_count` `t1` join `videos` `t2` on((`t1`.`id` = `t2`.`id`))) ;
+COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
