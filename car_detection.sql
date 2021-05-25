@@ -60,10 +60,10 @@ COMMIT;
 -- --------------------------------------------------------
 
 --
--- View for object count 'video_count`
+-- View for object count `video_count`
 --
 
-CREATE OR REPLACE VIEW 'video_count' AS
+CREATE OR REPLACE VIEW `video_count` AS
 SELECT t2.id, t2.VideoName, t1.CarCount
 FROM `car_count` t1
 INNER JOIN `videos` t2
