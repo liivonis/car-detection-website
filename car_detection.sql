@@ -48,14 +48,6 @@ CREATE TABLE IF NOT EXISTS `videos` (
   PRIMARY KEY (`id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
---
--- Dumping data for table `videos`
---
-
-INSERT INTO `videos` (`id`, `VideoName`) VALUES
-(1, 'vid'),
-(2, 'video');
-COMMIT;
 
 -- --------------------------------------------------------
 

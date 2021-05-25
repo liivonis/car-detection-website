@@ -81,4 +81,3 @@ def run_counter():
     cap.release()
 
     db.execute("INSERT INTO car_count (CarCount) VALUES (%s)" % cars)
-    db_connection.mydb.commit()
