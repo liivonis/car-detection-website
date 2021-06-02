@@ -66,6 +66,19 @@ CREATE TABLE IF NOT EXISTS `video_count` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for table `car_single_count`
+--
+CREATE TABLE IF NOT EXISTS `car_single_count` (
+  `ID` int(6) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `Video_Name` VARCHAR(50),
+  `Time_Stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `Car_Sequence_No` int(10),
+  PRIMARY KEY (`ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `video_count`
 --
 DROP TABLE IF EXISTS `video_count`;
