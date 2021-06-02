@@ -34,6 +34,7 @@ def run_counter():
 
     cap = cv2.VideoCapture('videos/' + get_video_name() + '.mp4')
     object_detector = cv2.createBackgroundSubtractorMOG2(varThreshold=40)
+    videoname = get_video_name()
 
     while True:
         ret, frame1 = cap.read()
@@ -64,6 +65,7 @@ def run_counter():
                 for (x, y) in detections:
                     if y < (line_pos + offset) and y > (line_pos - offset):
                         cars += 1
+                        db.execute("INSERT INTO car_single_count (Video_Name, Car_Sequence_No) VALUES(%s,'%s')" % (cars, videoname))
                         cv2.line(frame1, (25, line_pos), (1200, line_pos), (0, 127, 255), 3)
                         detections.remove((x, y))
                         print("car is detected : " + str(cars))
